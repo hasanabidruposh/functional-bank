@@ -21,11 +21,22 @@ function updateTotalField(totalFieldId, inputAmount) {
     totalField.innerText = pretotal + inputAmount;
 }
 
+//function for getting current balance
+function getCurrentBalance() {
+    //current Balance
+    const balanceTotal = document.getElementById('balance-total');
+    const balanceTotalText = balanceTotal.innerText;
+    const preBalanceTotal = parseFloat(balanceTotalText);
+    return preBalanceTotal;
+}
+
 // function_3 for getting final balance
 function updateBalance(inputAmount, isAdd) {
     //update Balance
     const balanceTotal = document.getElementById('balance-total');
-    const preBalanceTotal = parseFloat(balanceTotal.innerText);
+    /* const balanceTotalText = balanceTotal.innerText;
+    const preBalanceTotal = parseFloat(balanceTotalText); */
+    const preBalanceTotal = getCurrentBalance();
 
     if (isAdd == true) {
         //get updated Balance after deposite
@@ -62,10 +73,18 @@ document.getElementById('withdraw-button').addEventListener('click', function ()
     //function_1 call for getting previous withdraw
     const withdrawAmount = getInputValue('withdraw-input');
 
-    //function_2 call for showing updated withdraw
-    updateTotalField('withdraw-amount', withdrawAmount);
+    //function call for getting current balance
+    const currentBalance = getCurrentBalance();
+    if (withdrawAmount > 0 && withdrawAmount < currentBalance) {
+        //function_2 call for showing updated withdraw
+        updateTotalField('withdraw-amount', withdrawAmount);
 
-    //function_3 call for showing updated Balance
-    updateBalance(withdrawAmount, false);
+        //function_3 call for showing updated Balance
+        updateBalance(withdrawAmount, false);
+    }
+    if (withdrawAmount > currentBalance) {
+        console.log('Exceeding Balance!!! You can not withdraw anymore!');
+    }
+
 });
 
