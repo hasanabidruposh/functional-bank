@@ -44,12 +44,13 @@ document.getElementById('deposite-button').addEventListener('click', function ()
     //function_1 call for getting previous deposite 
     const depositeAmount = getInputValue('deposite-input');
 
-    //function_2 call for showing updated deposite
-    updateTotalField('deposite-amount', depositeAmount);
+    if (depositeAmount > 0) {
+        //function_2 call for showing updated deposite
+        updateTotalField('deposite-amount', depositeAmount);
 
-    //function_3 call for showing updated Balance
-    updateBalance(depositeAmount, true);
-
+        //function_3 call for showing updated Balance
+        updateBalance(depositeAmount, true);
+    }
 
 });
 
